@@ -29,8 +29,10 @@ function userAddRow(user) {
 
 function userBuildTableRow(user) {
    return "<tr>" +
+      "<td>" + user.id + "</td>" +
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
+      "<td><button type='button' id='deleteAllButton' class='btn btn-primary' onclick='deleteAllClick();'>"Delete"</button></td>" +
       "</tr>";
 }
 

@@ -23,7 +23,7 @@ public class UserController {
         List<UserEntity> users = userRepository.findAll();
         List<UserInfo> resultUsers = new ArrayList<>();
         for (UserEntity user : users) {
-            resultUsers.add(new UserInfo(user.getFirstName(), user.getLastName()));
+            resultUsers.add(new UserInfo(user.getId(), user.getFirstName(), user.getLastName()));
         }
 
         return ResponseEntity.ok(resultUsers);
@@ -31,8 +31,8 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserInfo> createUser(@RequestBody UserInfo userInfo) {
-        userRepository.save(new UserEntity(userInfo.getFirstName(), userInfo.getLastName()));
-        return ResponseEntity.ok(new UserInfo(userInfo.getFirstName(), userInfo.getLastName()));
+        UserEntity user = userRepository.save(new UserEntity(userInfo.getFirstName(), userInfo.getLastName()));
+        return ResponseEntity.ok(new UserInfo(user.getId(), userInfo.getFirstName(), userInfo.getLastName()));
     }
     @PostMapping("/users/edit")
     public ResponseEntity<UserInfo> editUser() {
@@ -47,6 +47,11 @@ public class UserController {
     @DeleteMapping("/users")
     public ResponseEntity<Void> deleteUser() {
         userRepository.deleteAll();
+        return ResponseEntity.ok().build();
+    }
+    @DeleteMapping("/tutorials/{id}")
+    public ResponseEntity<Void> deleteTutorial(@PathVariable("id") long id) {
+        userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }
