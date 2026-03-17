@@ -32,7 +32,7 @@ function userBuildTableRow(user) {
       "<td>" + user.id + "</td>" +
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
-      "<td><button type='button' id='deleteAllButton' class='btn btn-primary' onclick='deleteAllClick();'>"Delete"</button></td>" +
+      "<td>" + user.age + "</td>" +
       "</tr>";
 }
 
@@ -49,12 +49,14 @@ function handleException(request, message, error) {
 function formClear() {
    $("#firstname").val("");
    $("#lastname").val("");
+   $("#age").val("");
 }
 
 function updateClick() {
    const User = {};
    User.firstname = $("#firstname").val();
    User.lastname = $("#lastname").val();
+   User.age = $("#age").val();
    userAdd(User);
 }
 
@@ -87,7 +89,20 @@ function deleteAllClick() {
 }
 function editAllClick() {
    $.ajax({
-      url: 'http://localhost:8080/api/users/edit',
+      url: 'http://localhost:8080/api/users/editname',
+      type: 'POST',
+      success: function () {
+         userDeleteSuccess();
+         userList();
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
+function editAllLastNameClick() {
+   $.ajax({
+      url: 'http://localhost:8080/api/users/editlastname',
       type: 'POST',
       success: function () {
          userDeleteSuccess();

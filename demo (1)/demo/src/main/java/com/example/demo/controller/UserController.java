@@ -23,7 +23,7 @@ public class UserController {
         List<UserEntity> users = userRepository.findAll();
         List<UserInfo> resultUsers = new ArrayList<>();
         for (UserEntity user : users) {
-            resultUsers.add(new UserInfo(user.getId(), user.getFirstName(), user.getLastName()));
+            resultUsers.add(new UserInfo(user.getId(), user.getFirstName(), user.getLastName(), user.getAge()));
         }
 
         return ResponseEntity.ok(resultUsers);
@@ -31,10 +31,10 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserInfo> createUser(@RequestBody UserInfo userInfo) {
-        UserEntity user = userRepository.save(new UserEntity(userInfo.getFirstName(), userInfo.getLastName()));
-        return ResponseEntity.ok(new UserInfo(user.getId(), userInfo.getFirstName(), userInfo.getLastName()));
+        UserEntity user = userRepository.save(new UserEntity(userInfo.getFirstName(), userInfo.getLastName(), userInfo.getAge()));
+        return ResponseEntity.ok(new UserInfo(user.getId(), userInfo.getFirstName(), userInfo.getLastName(), userInfo.getAge()));
     }
-    @PostMapping("/users/edit")
+    @PostMapping("/users/editname")
     public ResponseEntity<UserInfo> editUser() {
         List <UserEntity> users= userRepository.findAll();
         for (UserEntity user: users){
@@ -42,7 +42,15 @@ public class UserController {
         }
         userRepository.saveAll(users);
         return ResponseEntity.ok().build();
-
+    }
+    @PostMapping("/users/editlastname")
+    public ResponseEntity<UserInfo> editlastnameUser() {
+        List <UserEntity> users= userRepository.findAll();
+        for (UserEntity user: users){
+            user.setLastName("Muzafarov");
+        }
+        userRepository.saveAll(users);
+        return ResponseEntity.ok().build();
     }
     @DeleteMapping("/users")
     public ResponseEntity<Void> deleteUser() {

@@ -17,12 +17,25 @@ public class UserEntity {
     @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "age")
+    private Integer age;
+
     public UserEntity() {
     }
 
-    public UserEntity(String firstName, String lastName) {
+    //public UserEntity(String firstName, String lastName) {
+        //this.firstName = firstName;
+        //this.lastName = lastName;
+    //}
+
+    public UserEntity(String firstName, String lastName, Integer age) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
+    }
+
+    public Integer getAge() {
+        return age;
     }
 
     public Long getId() {
