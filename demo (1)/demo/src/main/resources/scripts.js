@@ -33,6 +33,11 @@ function userBuildTableRow(user) {
       "<td>" + user.firstname + "</td>" +
       "<td>" + user.lastname + "</td>" +
       "<td>" + user.age + "</td>" +
+      "<td>" + "<div class=\"row\">" +
+                        "<div class=\"col-xs-12\">" +
+                        "<button id=\"deleteOneButton\" class=\"btn btn-primary\" onclick=deleteOneClick(" + user.id + ");>Delete</button>" +
+                        "</div>" + "</div>" +
+      "</td>" +
       "</tr>";
 }
 
@@ -81,6 +86,19 @@ function deleteAllClick() {
       type: 'DELETE',
       success: function () {
          userDeleteSuccess();
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
+function deleteOneClick(id) {
+   $.ajax({
+      url: 'http://localhost:8080/api/users/' + id,
+      type: 'DELETE',
+      success: function () {
+         userDeleteSuccess();
+         userList();
       },
       error: function (request, message, error) {
          handleException(request, message, error);

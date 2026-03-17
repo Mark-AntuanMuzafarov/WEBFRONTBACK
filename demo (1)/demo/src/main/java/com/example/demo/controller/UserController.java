@@ -25,7 +25,6 @@ public class UserController {
         for (UserEntity user : users) {
             resultUsers.add(new UserInfo(user.getId(), user.getFirstName(), user.getLastName(), user.getAge()));
         }
-
         return ResponseEntity.ok(resultUsers);
     }
 
@@ -66,7 +65,7 @@ public class UserController {
         userRepository.deleteAll();
         return ResponseEntity.ok().build();
     }
-    @DeleteMapping("/tutorials/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteTutorial(@PathVariable("id") long id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
