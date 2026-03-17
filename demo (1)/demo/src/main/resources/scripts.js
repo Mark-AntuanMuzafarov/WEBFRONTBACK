@@ -113,6 +113,19 @@ function editAllLastNameClick() {
       }
    });
 }
+function editAllAgeClick() {
+   $.ajax({
+      url: 'http://localhost:8080/api/users/editage',
+      type: 'POST',
+      success: function () {
+         userDeleteSuccess();
+         userList();
+      },
+      error: function (request, message, error) {
+         handleException(request, message, error);
+      }
+   });
+}
 function userDeleteSuccess() {
    $("#userTable tbody").remove();
 }

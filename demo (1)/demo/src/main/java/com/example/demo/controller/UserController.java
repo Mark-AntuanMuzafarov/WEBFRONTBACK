@@ -52,6 +52,15 @@ public class UserController {
         userRepository.saveAll(users);
         return ResponseEntity.ok().build();
     }
+    @PostMapping("/users/editage")
+    public ResponseEntity<UserInfo> editageUser() {
+        List <UserEntity> users= userRepository.findAll();
+        for (UserEntity user: users){
+            user.setAge(100);
+        }
+        userRepository.saveAll(users);
+        return ResponseEntity.ok().build();
+    }
     @DeleteMapping("/users")
     public ResponseEntity<Void> deleteUser() {
         userRepository.deleteAll();
